@@ -10,7 +10,7 @@
     {% if problem_list %}
         <ul>
             {% for problem in problem_list %}
-                <li>{{ problem.problem_title }}</li>
+                <li><a href="{% url 'judge:tests' problem.id %}">{{ problem.problem_title }}</a></li>
             {% endfor %}
         </ul>
     {% else %}

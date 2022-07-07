@@ -10,7 +10,8 @@ def index(request):
 
 def tests(request, problem_id):
     problem = get_object_or_404(Problem, pk=problem_id)
-    return render(request, 'judge/testcases.html', {'problem': problem})
+    testcases = Testcases.objects.filter(problem_id = problem.id)
+    return render(request, 'judge/testcases.html', {'problem': problem, 'testcases': testcases})
 
 def answers(request, problem_id):
     problem = get_object_or_404(Problem, pk=problem_id)

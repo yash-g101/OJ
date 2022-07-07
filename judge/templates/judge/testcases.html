@@ -1,12 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ problem.problem.title }}</title>
-</head>
-<body>
-    
-</body>
-</html>
+{% extends "./problem_page.html" %}
+
+{% block title %}
+    <title>problem {{ problem.id }}</title>
+{% endblock %}
+
+{% block header %}
+    <h1>{{ problem.problem_title }}</h1>
+{% endblock %}
+
+{% block problem_statement %}
+    <p>{{ problem.problem_statement }}</p>
+{% endblock %}
+
+{% block io_constraints %}
+    <pre>{{ problem.input_output_constraint }}</pre>
+{% endblock %}
+
+{% block input_test %}
+    <pre>{{ testcases.test_input }}</pre>
+{% endblock %}
+
+{% block output_test %}
+    <pre>{{ testcases.test_output }}</pre>
+{% endblock %}

@@ -1,9 +1,11 @@
+from unittest.util import _MAX_LENGTH
 from django.db import models
 
 # Create your models here.
 class Problem(models.Model):
     problem_title = models.CharField(max_length=25)
     problem_statement = models.TextField()
+    input_output_constraint = models.TextField()
 
     def __str__(self):
         return self.problem_title
@@ -14,7 +16,7 @@ class Testcases(models.Model):
     test_output = models.TextField()
 
     def __str__(self):
-        return self.test_input, self.test_output
+        return self.id
 
 VERDICT_CHOICES = (
     ("0", "Unattempted"),
