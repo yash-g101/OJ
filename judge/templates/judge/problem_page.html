@@ -9,45 +9,25 @@
 </head>
 <body>
     <div class="container">
-        <form action="{% url 'judge:answer' problem.id %}" method="POST">
-            {% csrf_token %}
-            <fieldset>
-                <legend>
+        <fieldset>
+            <form action="{% url 'judge:submission' problem.id %}" enctype="multipart/form-data" method="post">
+                {% csrf_token %}
+
                     {% block header %}
                     {% endblock %}
-                </legend>
-                {% block problem_statement %}
-                {% endblock %}
-
-                {% block io_constraints %}
-                {% endblock %}
-
-                <fieldset>
-                    <legend><h3>Sample Input</h3></legend>
-                    {% block input_test %}
+                    
+                    {% block problem_statement %}
                     {% endblock %}
-                </fieldset>
-
+    
                 <fieldset>
-                    <legend><h3>Sample Output</h3></legend>
-                    {% block output_test %}
-                    {% endblock %}
+                    <legend><h3>Submit Your Code</h3></legend>
+                    <div>
+                        <input type="file" id="submission" name="submission">
+                        <input type="submit" value="submit">
+                    </div>
                 </fieldset>
-
-            </fieldset>
-
-            {% block submit %}
-                <input type="submit" value="Submit">
-            {% endblock %}
-        </form>
-        
-        
-        
-
-        
-
-        
-
+            </form>
+        </fieldset>
         
 
     </div>    

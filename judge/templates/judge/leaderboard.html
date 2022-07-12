@@ -4,17 +4,18 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Problems</title>
+    <title>Leaderboard</title>
 </head>
 <body>
-    {% if problems_list %}
-        <ol>
-            {% for problem in problems_list %}
-                <li><a href="{% url 'judge:problem_detail' problem.id %}">{{ problem.title }}</a></li>
+    <h1>Leaderboard</h1>
+    {% if submissions %}
+        <ul>
+            {% for s in submissions %}
+                <p>{{ s.problem.title }} -- {{ s.verdict }} -- {{ s.submission_time }}</p>
             {% endfor %}
-        </ol>
+        </ul>
     {% else %}
-        <p>No problems are available.</p>
+        <h3>No submissions yet. </h3>
     {% endif %}
 </body>
 </html> 

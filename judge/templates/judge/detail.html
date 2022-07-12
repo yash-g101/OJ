@@ -1,0 +1,13 @@
+{% extends "./problem_page.html" %}
+
+{% block title %}
+    <title>problem {{ problem.id }}</title>
+{% endblock %}
+
+{% block header %}
+    <h1>{{ problem.title }}</h1>
+{% endblock %}
+
+{% block problem_statement %}
+    <pre>{{ problem.problem_statement }}</pre>
+{% endblock %}

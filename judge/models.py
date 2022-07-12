@@ -1,44 +1,37 @@
-from unittest.util import _MAX_LENGTH
+from distutils.command.upload import upload
 from django.db import models
+import os
 
-# Create your models here.
 class Problem(models.Model):
-    problem_title = models.CharField(max_length=25)
+    title = models.CharField(max_length=100)
     problem_statement = models.TextField()
-    input_output_constraint = models.TextField()
+    code = models.TextField(blank=True)
 
     def __str__(self):
-        return self.problem_title
+        return self.title
     
-class Testcases(models.Model):
+class Submission(models.Model):
     problem = models.ForeignKey(Problem, on_delete=models.CASCADE)
-    test_input = models.TextField()
-    test_output = models.TextField()
+    verdict = models.CharField(max_length=100)
 
-    def __str__(self):
-        return self.id
+    def get_upload_path(instance, filename):
+        return os.path.join("uploads/solution/p%d" % instance.problem_id, filename)
 
-VERDICT_CHOICES = (
-    ("0", "Unattempted"),
-    ("1", "Accepted"),
-    ("2", "WA"), 
-    ("3", "TLE"),
-    ("4", "CTE"),
-    ("5", "RTE"),
-)
-
-LANGUAGE_CHOICES = (
-    ("C", "C"),
-    ("C++", "C++"),
-    ("Python3", "Python3"),
-    ("Java", "Java"),
-)
-
-class Submissions(models.Model):
-    problem = models.ForeignKey(Problem, on_delete=models.CASCADE)
-    language = models.CharField(max_length=20, choices=LANGUAGE_CHOICES, default="C++")
-    submitted_code = models.TextField()
-    verdict = models.CharField(max_length=40, choices=VERDICT_CHOICES)
+    submission_time = models.DateTimeField()
+    submitted_code = models.FileField(upload_to=get_upload_path)
 
     def __str__(self):
         return self.verdict
+
+class Testcases(models.Model):
+    problem = models.ForeignKey(Problem, on_delete=models.CASCADE)
+
+    def get_upload_path_input(instance, filename):
+        return os.path.join("uploads/input/p%d" % instance.problem_id, filename)
+
+    def get_upload_path_output(instance, filename):
+        return os.path.join("uploads/output/p%d" % instance.problem_id, filename)
+
+
+    input = models.FileField(upload_to=get_upload_path_input)
+    output = models.FileField(upload_to=get_upload_path_output)
